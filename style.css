@@ -65,27 +65,27 @@ button {
   background-color: red;
 }
 
-.task-color-2 {
+.task-color-2 .task-value {
   background-color: orange;
 }
 
-.task-color-3 {
+.task-color-3 .task-value {
   background-color: yellow;
 }
 
-.task-color-4 {
+.task-color-4 .task-value {
   background-color: green;
 }
 
-.task-color-5 {
+.task-color-5 .task-value {
   background-color: blue;
 }
 
-.task-color-6 {
+.task-color-6 .task-value {
   background-color: indigo;
 }
 
-.task-color-7 {
+.task-color-7 .task-value {
   background-color: violet;
 }
 
