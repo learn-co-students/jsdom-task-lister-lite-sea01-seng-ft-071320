@@ -26,7 +26,9 @@ function addTask(taskObj) {
   // Creates the task list item with task and prio classes and id
   const task = document.createElement("li");
   task.classList.add("task");
+  task.classList.add("flow-left");
   task.classList.add(`task-prio-${taskObj.priority}`);
+  task.classList.add(`task-color-${taskObj.color}`);
   task.dataset.priority = taskObj.priority;
   task.dataset.color = taskObj.color;
   task.id = `task-${newId}`;
@@ -36,6 +38,11 @@ function addTask(taskObj) {
   newTaskValue.textContent = taskObj.value;
   newTaskValue.id = `task-value-${task.id}`;
   newTaskValue.classList.add("task-value");
+
+  // Creates a tag containing the task priority flag
+  const taskPrio = document.createElement("div");
+  taskPrio.textContent = taskTag(taskObj.priority);
+  taskPrio.classList.add("task-prio");
 
   // Creates a tag containing the edit link for this task
   const editTaskLink = document.createElement("div");
@@ -51,6 +58,7 @@ function addTask(taskObj) {
 
   // Adds the task value and edit and remove links to the empty list item
   task.appendChild(newTaskValue);
+  task.appendChild(taskPrio);
   task.appendChild(removeTaskLink);
   task.appendChild(editTaskLink);
 
@@ -60,6 +68,16 @@ function addTask(taskObj) {
   // Re-initializes the event listeners for all of the edit and remove task links
   initRemoveTaskLinks();
   initEditTaskLinks();
+}
+
+function taskTag(prioNum) {
+  if (prioNum === "0") {
+    return "Low";
+  } else if (prioNum === "1") {
+    return "Medium";
+  } else if (prioNum === "2") {
+    return "High";
+  }
 }
 
 function editTask(e) {

@@ -7,7 +7,7 @@ html {
 body {
   min-height: 100%;
   min-width: 100%;
-  background: linear-gradient(pink, violet);
+  background: linear-gradient(#f3f3f3, #333);
 }
 
 button {
@@ -34,4 +34,69 @@ button {
   padding: 15px 20px 18px 18px;
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
+}
+
+.flow > * + * {
+  margin-top: 1rem;
+}
+
+.flow-left > * + * {
+  margin-left: 0.25rem;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-value {
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.task > * + * {
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+}
+
+.task-color-1 .task-value {
+  background-color: red;
+}
+
+.task-color-2 {
+  background-color: orange;
+}
+
+.task-color-3 {
+  background-color: yellow;
+}
+
+.task-color-4 {
+  background-color: green;
+}
+
+.task-color-5 {
+  background-color: blue;
+}
+
+.task-color-6 {
+  background-color: indigo;
+}
+
+.task-color-7 {
+  background-color: violet;
+}
+
+.task-prio-2 .task-prio {
+  background-color: red;
+}
+
+.task-prio-1 .task-prio {
+  background-color: green;
+}
+
+.task-prio-0 .task-prio {
+  background-color: steelblue;
 }
