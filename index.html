@@ -24,11 +24,34 @@
           <option value="2">High</option>
           <option value="0">Low</option>
         </select>
+        <label for="color-select">Color:</label>
+        <select id="color-select" name="color">
+          <option value="8">None</option>
+          <option value="1">Red</option>
+          <option value="2">Orange</option>
+          <option value="3">Yellow</option>
+          <option value="4">Green</option>
+          <option value="5">Blue</option>
+          <option value="6">Indigo</option>
+          <option value="7">Violet</option>
+        </select>
         <input type="submit" value="Create New Task" />
       </form>
 
+      <form id="sort-form" action="#" method="post">
+        <label for="sort-select">Sort By:</label>
+        <select id="sort-select" name="sort">
+          <option value="none">None</option>
+          <option value="high">Priority (High to Low)</option>
+          <option value="low">Priority (Low to High)</option>
+          <option value="rainbow">Rainbow</option>
+        </select>
+
+        <input type="submit" value="Sort!" />
+      </form>
+
       <div id="tasks">
-        <h2>My Todos</h2>
+        <h2>Todo Rainbow</h2>
         <ul id="task-list"></ul>
       </div>
     </div>

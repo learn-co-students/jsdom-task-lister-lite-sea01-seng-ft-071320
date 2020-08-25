@@ -1,10 +1,15 @@
 function taskForm(e) {
   const form = document.getElementById("task-form");
-  const taskValue = form.task.value;
 
   e.preventDefault();
 
-  addTask(taskValue, form.priority.value);
+  const taskObj = {
+    value: form.task.value,
+    priority: form.priority.value,
+    color: form.color.value,
+  };
+
+  addTask(taskObj);
   clearTaskForm();
 }
 
@@ -14,20 +19,21 @@ function clearTaskForm() {
   form.priority.value = "1";
 }
 
-function addTask(taskValue, taskPriority) {
+function addTask(taskObj) {
   const taskList = document.getElementById("task-list");
   const newId = taskList.getElementsByTagName("li").length + 1;
 
   // Creates the task list item with task and prio classes and id
   const task = document.createElement("li");
   task.classList.add("task");
-  task.classList.add(`task-prio-${taskPriority}`);
-  task.dataset.priority = taskPriority;
+  task.classList.add(`task-prio-${taskObj.priority}`);
+  task.dataset.priority = taskObj.priority;
+  task.dataset.color = taskObj.color;
   task.id = `task-${newId}`;
 
   // Creates a tag containing the task value
   const newTaskValue = document.createElement("div");
-  newTaskValue.textContent = taskValue;
+  newTaskValue.textContent = taskObj.value;
   newTaskValue.id = `task-value-${task.id}`;
   newTaskValue.classList.add("task-value");
 
@@ -80,10 +86,115 @@ function removeTask(e) {
   task.parentNode.removeChild(task);
 }
 
+function sortForm(e) {
+  const form = document.getElementById("sort-form");
+
+  e.preventDefault();
+
+  switch (form.sort.value) {
+    case "high":
+      sortTasksByHigh();
+      break;
+
+    case "low":
+      sortTasksByLow();
+      break;
+
+    case "rainbow":
+      // Sort by ROYGBIV
+      sortTasksByRainbow();
+      break;
+
+    default:
+      // Sort by Id
+      sortTasksById();
+  }
+}
+
+function sortTasksById() {
+  const taskList = document.getElementById("task-list");
+  const newList = taskList.cloneNode(false);
+
+  let sortedList = Array.from(taskList.childNodes);
+
+  sortedList.sort(function (a, b) {
+    return (
+      parseInt(a.id.replace("task-", "")) - parseInt(b.id.replace("task-", ""))
+    );
+  });
+
+  for (let i = 0; i < sortedList.length; i++) {
+    newList.appendChild(sortedList[i]);
+  }
+
+  for (let i = 0; i < sortedList.length; i++) {
+    newList.appendChild(sortedList[i]);
+  }
+
+  taskList.parentNode.replaceChild(newList, taskList);
+}
+
+function sortTasksByHigh() {
+  const taskList = document.getElementById("task-list");
+  const newList = taskList.cloneNode(false);
+
+  let sortedList = Array.from(taskList.childNodes);
+
+  sortedList.sort(function (a, b) {
+    return parseInt(b.dataset.priority) - parseInt(a.dataset.priority);
+  });
+
+  for (let i = 0; i < sortedList.length; i++) {
+    newList.appendChild(sortedList[i]);
+  }
+
+  taskList.parentNode.replaceChild(newList, taskList);
+}
+
+function sortTasksByLow() {
+  const taskList = document.getElementById("task-list");
+  const newList = taskList.cloneNode(false);
+
+  let sortedList = Array.from(taskList.childNodes);
+
+  sortedList.sort(function (a, b) {
+    return parseInt(a.dataset.priority) - parseInt(b.dataset.priority);
+  });
+
+  for (let i = 0; i < sortedList.length; i++) {
+    newList.appendChild(sortedList[i]);
+  }
+
+  taskList.parentNode.replaceChild(newList, taskList);
+}
+
+function sortTasksByRainbow() {
+  const taskList = document.getElementById("task-list");
+  const newList = taskList.cloneNode(false);
+
+  let sortedList = Array.from(taskList.childNodes);
+
+  sortedList.sort(function (a, b) {
+    return parseInt(a.dataset.color) - parseInt(b.dataset.color);
+  });
+
+  for (let i = 0; i < sortedList.length; i++) {
+    newList.appendChild(sortedList[i]);
+  }
+
+  taskList.parentNode.replaceChild(newList, taskList);
+}
+
 function initTaskForm() {
   const form = document.getElementById("task-form");
 
   form.addEventListener("submit", taskForm, false);
+}
+
+function initSortForm() {
+  const form = document.getElementById("sort-form");
+
+  form.addEventListener("submit", sortForm, false);
 }
 
 function initRemoveTaskLinks() {
@@ -105,3 +216,4 @@ function initEditTaskLinks() {
 initTaskForm();
 initRemoveTaskLinks();
 initEditTaskLinks();
+initSortForm();
