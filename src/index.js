@@ -1,30 +1,20 @@
+const taskForm = document.querySelector("#create-task-form");
 
-document.addEventListener("DOMContentLoaded", () => {
-  //grab all the necessary DOM elements
+const taskList = document.querySelector("#tasks");
 
-  //form and relevant input fields
-  const newTaskForm = document.getElementById("create-task-form");
-  const newTaskDescription = document.getElementById("new-task-description");
-  const newTaskPriority = document.getElementById("new-task-priority");
+taskForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const newTask = document.querySelector("#new-task-description").value;
 
-  //ul where new tasks will live on the DOM
-  const newTaskUl = document.getElementById("tasks");
+  taskList.innerHTML += `<li> ${newTask}
+  <button data-action = "delete"> X </button>
+  </li>`;
 
-  //attach event listeners
-  newTaskForm.addEventListener("submit", createNewTask);
+  taskForm.reset();
 });
 
-const createNewTask = event => {
-  event.preventDefault();
-  //stop form from trying to submit
-  const newTaskDescription = document.getElementById("new-task-description");
-  const newTask = document.createElement("li");
-  newTask.innerText = newTaskDescription.value;
-
-  appendNewTask(newTask);
-  event.target.reset();
-};
-
-const appendNewTask = task => {
-  document.getElementById("tasks").appendChild(task);
-};
+taskList.addEventListener("click", function (e) {
+  if (e.target.dataset.action === "delete") {
+    e.target.parentElement.remove();
+  }
+});
